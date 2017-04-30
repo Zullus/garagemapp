@@ -1,0 +1,38 @@
+/*
+*
+*/
+
+body {
+    font-family: 'Lato';
+}
+
+.fa-btn {
+    margin-right: 6px;
+}
+
+.remover{
+    color: #ff0000;
+    margin-left: 20px;
+}
+
+.remover i{
+    font-size: 20px;
+}
+
+.menu li{
+	display: inline;
+	list-style-type: none;
+}
+
+.form-control{
+	max-width: 75%;
+}
+
+.form-paymentss{
+	display: inline !important;
+	max-width: 50% !important;
+}
+
+.label-payments{
+	width:100px;
+}
