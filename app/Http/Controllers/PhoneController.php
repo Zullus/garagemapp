@@ -38,6 +38,24 @@ class PhoneController extends Controller
 
 	}
 
+	public function add(Request $request){
+
+		$phone = new \App\Phone;
+
+		$input = $request->all();
+
+		//$phone->fill($request);
+		$phone->number   = $input['phonenumber'][0];
+		$phone->type     = $input['phonetype'][0];
+		$phone->company  = $input['phonecompany'][0];
+		$phone->owner_id = $input['owner_id'][0];
+
+    	$phone->save();
+
+    	return redirect()->route('owners.show', ['id' => 1])->with('success', 'Telefone Adicionado!');
+
+	}
+
 	public function update($request){
 
 		if(isset($request['id'])){
@@ -58,6 +76,11 @@ class PhoneController extends Controller
 
     	return true;
 
+	}
+
+	public function create($owner){
+
+		return view('phones.create')->with(compact('owner'));
 	}
 
 	public function destroy($id){

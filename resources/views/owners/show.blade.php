@@ -2,6 +2,12 @@
 
 @section('content')
 
+	@if(Session::has('success'))
+
+		<div class="alert alert-success">{!! Session::get('success') !!}</div>
+
+	@endif
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -76,6 +82,24 @@
 
 		</tbody>
 	</table>
+
+	<a href="{!! route('phones.create', ['owner' => $owner->id]) !!}">
+		<button class="btn btn-warning">
+			<span class="glyphicon glyphicon-phone-alt"></span>
+			Adicionar Telefone
+		</button>
+	</a>
+
+	<br><br>
+
+	<a href="{!! route('cars.create', ['owner' => $owner->id]) !!}">
+		<button class="btn btn-warning">
+			<span class="glyphicon glyphicon-shopping-cart"></span>
+			Adicionar Carro
+		</button>
+	</a>
+
+	<br><br>
 
 	<a href="{!! route('owners.edit', ['id' => $owner->id]) !!}">
 		<button class="btn btn-primary">Editar</button>

@@ -40,9 +40,10 @@ Route::group(['prefix' => 'proprietarios'], function(){
 Route::group(['prefix' => 'carros'], function(){
 
 	Route::get('/', ['as' => 'cars.index', 'uses' => 'CarController@index']);
-	Route::get('new', ['as' => 'cars.create', 'uses' => 'CarController@create']);
+	Route::get('{owner}/new', ['as' => 'cars.create', 'uses' => 'CarController@create']);
 	Route::get('{id}', ['as' => 'cars.show', 'uses' => 'CarController@show']);
 	Route::post('store', ['as' => 'cars.store', 'uses' => 'CarController@store']);
+	Route::post('add', ['as' => 'cars.add', 'uses' => 'CarController@add']);
 	Route::get('{id}/edit', ['as' => 'cars.edit', 'uses' => 'CarController@edit']);
 	Route::post('{id}/update', ['as' => 'cars.update', 'uses' => 'CarController@selfUpdate']);
 	Route::get('{id}/delete', ['as' => 'cars.destroy', 'uses' => 'CarController@destroy']);
@@ -64,9 +65,10 @@ Route::group(['prefix' => 'pagamentos'], function(){
 Route::group(['prefix' => 'telefones'], function(){
 
 	Route::get('/', ['as' => 'phones.index', 'uses' => 'PhoneController@index']);
-	Route::get('new', ['as' => 'phones.create', 'uses' => 'PhoneController@create']);
+	Route::get('{owner}/new', ['as' => 'phones.create', 'uses' => 'PhoneController@create']);
 	Route::get('{id}', ['as' => 'phones.show', 'uses' => 'PhoneController@show']);
 	Route::post('store', ['as' => 'phones.store', 'uses' => 'PhoneController@store']);
+	Route::post('add', ['as' => 'phones.add', 'uses' => 'PhoneController@add']);
 	Route::get('{id}/edit', ['as' => 'phones.edit', 'uses' => 'PhoneController@edit']);
 	Route::post('{id}/update', ['as' => 'phones.update', 'uses' => 'PhoneController@update']);
 

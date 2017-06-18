@@ -48,6 +48,25 @@ class CarController extends Controller
 
 	}
 
+	public function add(Request $request){
+
+		$car = new \App\Car;
+
+		$input = $request->all();
+
+		//$car->fill($request);
+		$car->brand    = $input['carbrand'][0];
+		$car->model    = $input['carmodel'][0];
+		$car->color    = $input['carcolor'][0];
+		$car->owner_id = $input['owner_id'];
+		$car->plate    = $input['carplate'][0];
+
+    	$car->save();
+
+    	return redirect()->route('owners.show', ['id' => 1])->with('success', 'Carro Adicionado!');
+
+	}
+
 	public function update($request){
 
 		if(isset($request['id'])){
@@ -69,6 +88,11 @@ class CarController extends Controller
 
     	return true;
 
+	}
+
+	public function create($owner){
+
+		return view('cars.create')->with(compact('owner'));
 	}
 
 	public function destroy($id){
