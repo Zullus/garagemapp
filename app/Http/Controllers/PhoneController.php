@@ -48,11 +48,11 @@ class PhoneController extends Controller
 		$phone->number   = $input['phonenumber'][0];
 		$phone->type     = $input['phonetype'][0];
 		$phone->company  = $input['phonecompany'][0];
-		$phone->owner_id = $input['owner_id'][0];
+		$phone->owner_id = $input['owner_id'];
 
     	$phone->save();
 
-    	return redirect()->route('owners.show', ['id' => 1])->with('success', 'Telefone Adicionado!');
+    	return redirect()->route('owners.show', ['id' => $input['owner_id']])->with('success', 'Telefone Adicionado!');
 
 	}
 
@@ -83,13 +83,13 @@ class PhoneController extends Controller
 		return view('phones.create')->with(compact('owner'));
 	}
 
-	public function destroy($id){
+	public function destroy($id, $owner){
 
 		$phone = $this->find($id);
 
     	$phone->delete();
 
-    	return true;
+    	return redirect()->route('owners.show', ['id' => $owner])->with('success', 'Telefone Removido!');
 	}
 
 	public function find($id){

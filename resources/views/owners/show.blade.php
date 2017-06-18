@@ -62,6 +62,8 @@
 
 						@endif
 
+						<a href="{!! route('phones.destroy', [$phone->id, $owner->id]) !!}">Remove</a>
+
 					</td>
 				</tr>
 
@@ -75,6 +77,8 @@
 				<tr>
 					<td colspan="2">
 						{{$car->brand . ' ' . $car->model . ' ' . $car->color . ' ' . $car->plate}}
+
+						<a href="{!! route('cars.destroy', [$car->id, $owner->id]) !!}">Remove</a>
 					</td>
 				</tr>
 

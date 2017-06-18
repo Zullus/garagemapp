@@ -63,7 +63,7 @@ class CarController extends Controller
 
     	$car->save();
 
-    	return redirect()->route('owners.show', ['id' => 1])->with('success', 'Carro Adicionado!');
+    	return redirect()->route('owners.show', ['id' => $input['owner_id']])->with('success', 'Carro Adicionado!');
 
 	}
 
@@ -95,13 +95,13 @@ class CarController extends Controller
 		return view('cars.create')->with(compact('owner'));
 	}
 
-	public function destroy($id){
+	public function destroy($id, $owner){
 
 		$car = $this->find($id);
 
     	$car->delete();
 
-    	return true;
+    	return redirect()->route('owners.show', ['id' => $owner])->with('success', 'Carro Removido!');
 	}
 
 	public function find($id){

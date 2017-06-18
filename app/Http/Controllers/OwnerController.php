@@ -210,14 +210,20 @@ class OwnerController extends Controller
 
 	private function getcars($id){
 
-		$cars = DB::table('cars')->where('owner_id', $id)->get();
+		$cars = DB::table('cars')
+			->where('owner_id', $id)
+			->where('deleted_at', NULL)
+			->get();
 
 		return $cars;
 	}
 
 	private function getphones($id){
 
-		$phones = DB::table('phones')->where('owner_id', $id)->get();
+		$phones = DB::table('phones')
+			->where('owner_id', $id)
+			->where('deleted_at', NULL)
+			->get();
 
 		return $phones;
 	}
