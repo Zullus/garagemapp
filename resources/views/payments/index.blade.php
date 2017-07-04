@@ -35,48 +35,52 @@
 
 	</div>
 
-	<div class="row">
+	@if($total != '')
 
-		<div class="col-md-12">
+		<div class="row">
 
-			<strong>Pagamentos do mês</strong>
+			<div class="col-md-12">
 
-			<table class="table">
+				<strong>Pagamentos do mês</strong>
 
-				<thead>
-					<tr>
-						<th>Proprietário</th>
-						<th>Dia de Pagamento</th>
-						<th>Valor Pago</th>
-					</tr>
-				</thead>
+				<table class="table">
 
-				<tbody>
+					<thead>
+						<tr>
+							<th>Proprietário</th>
+							<th>Dia de Pagamento</th>
+							<th>Valor Pago</th>
+						</tr>
+					</thead>
 
-					@foreach($payments as $p)
+					<tbody>
+
+						@foreach($payments as $p)
+
+							<tr>
+								<td>{{$p->owner['name']}}</td>
+								<td>{{$p->payment_date}}</td>
+								<td>R$ {{number_format($p->amount, '2', ',', '.')}}</td>
+							</tr>
+
+						@endforeach
 
 						<tr>
-							<td>{{$p->owner['name']}}</td>
-							<td>{{$p->payment_date}}</td>
-							<td>R$ {{number_format($p->amount, '2', ',', '.')}}</td>
+							<td>Total dessa página</td>
+							<td colspan="2">R$ {{number_format($total, '2', ',', '.')}}</td>
 						</tr>
 
-					@endforeach
+					</tbody>
 
-					<tr>
-						<td>Total dessa página</td>
-						<td colspan="2">R$ {{number_format($total, '2', ',', '.')}}</td>
-					</tr>
+				</table>
 
-				</tbody>
+				{!!$payments->appends(Request::except('page'))->render()!!}
 
-			</table>
-
-			{!!$payments->appends(Request::except('page'))->render()!!}
+			</div>
 
 		</div>
 
-	</div>
+	@endif
 
 	<div class="row">
 

@@ -32,11 +32,6 @@ class PaymentController extends Controller
 					->whereBetween('payment_date', [$year . '-' . $month . '-1', $year . '-' . $month . '-31'])
 					->paginate(env('PAGINATION_ITEMS', 20));
 
-		if($payments->count() == 0){
-
-			return view('payments.empty');
-		}
-
 		$total = '';
 
 		foreach ($payments as $p) {
@@ -48,7 +43,7 @@ class PaymentController extends Controller
 		}
 
 		$allowners = $this->allowners();
-dd($payments);
+
 		return view('payments.index')->with(compact('payments', 'total', 'allowners', 'month', 'year'));
 
 	}
@@ -94,6 +89,17 @@ dd($payments);
 
     	return true;
 
+	}
+
+	public function create(){
+
+		$mounths = array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
+
+		$sucesso = NULL;
+
+		$owners = $this->allowners();
+
+		return view('payments.edit')->with(compact('owners', 'sucesso', 'mounths'));;
 	}
 
 	public function find($id){

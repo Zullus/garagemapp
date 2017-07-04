@@ -36,3 +36,12 @@ body {
 .label-payments{
 	width:100px;
 }
+
+.menor{
+    width: 140px !important;
+    display: inline !important;
+}
+
+.pagamento label{
+    width: 100px;
+}
