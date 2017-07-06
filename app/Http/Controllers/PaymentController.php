@@ -126,7 +126,7 @@ class PaymentController extends Controller
 
 		$day = date('d');
 
-		$owners = DB::select("SELECT * FROM owners WHERE id NOT IN ( SELECT owner_id FROM payments WHERE payment_date < NOW() and MONTH(payment_date) = $month ) AND payday < $day" );
+		$owners = DB::select("SELECT * FROM owners WHERE id NOT IN ( SELECT owner_id FROM payments WHERE payment_date < NOW() and MONTH(payment_date) = $month ) AND payday < $day AND deleted_at = NULL" );
 
 		if(count($owners) == 0){
 
