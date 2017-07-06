@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\OwnerController as Owner;
+use Illuminate\Support\Facades\DB;
 //use App\Garagem\DateFormat as DateFormat;
 
 class PaymentController extends Controller
@@ -115,6 +116,26 @@ class PaymentController extends Controller
 		$input = $request->all();
 
 		return $this->index($input['month'], $input['year']);
+	}
+
+	public function latePayment($month = ''){
+
+		if($month == ''){
+			$month = date('m');
+		}
+
+		$day = date('d');
+
+		$owners = DB::select("SELECT * FROM owners WHERE id NOT IN ( SELECT owner_id FROM payments WHERE payment_date < NOW() and MONTH(payment_date) = $month ) AND payday < $day" );
+
+		if(count($owners) == 0){
+
+			return null;
+
+		}
+
+		return $owners;
+
 	}
 
 	private function manipulaData($data, $h){

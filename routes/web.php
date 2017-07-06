@@ -54,12 +54,12 @@ Route::group(['prefix' => 'pagamentos'], function(){
 
 	Route::get('/', ['as' => 'payments.index', 'uses' => 'PaymentController@index']);
 	Route::get('new', ['as' => 'payments.create', 'uses' => 'PaymentController@create']);
+	Route::get('atrasados', ['as' => 'payments.latePayment', 'uses' => 'PaymentController@latePayment']);
 	Route::get('{id}', ['as' => 'payments.show', 'uses' => 'PaymentController@show']);
 	Route::post('store', ['as' => 'payments.store', 'uses' => 'PaymentController@store']);
 	Route::get('{id}/edit', ['as' => 'payments.edit', 'uses' => 'PaymentController@edit']);
 	Route::post('{id}/update', ['as' => 'payments.update', 'uses' => 'PaymentController@update']);
 	Route::post('pordata', ['as' => 'payments.findDate', 'uses' => 'PaymentController@findDate']);
-
 });
 
 Route::group(['prefix' => 'telefones'], function(){

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\PhoneController as PhoneController;
 use App\Http\Controllers\CarController as CarController;
+use App\Http\Controllers\PaymentController as PaymentController;
 
 class OwnerController extends Controller
 {
@@ -14,17 +15,21 @@ class OwnerController extends Controller
 
 	function __construct(
 	PhoneController $PhoneController,
-	CarController $carController)
+	CarController $carController,
+    PaymentController $PaymentController)
 	{
-		$this->PhoneController = $PhoneController;
-		$this->CarController = $carController;
+		$this->PhoneController    = $PhoneController;
+		$this->CarController      = $carController;
+        $this->PaymentController  = $PaymentController;
 	}
 
     public function index(){
 
     	$owners = \App\Owner::with('cars', 'phones')->orderBy('id', 'desc')->paginate(env('PAGINATION_ITEMS', 20));
 
-		return view('owners.index')->with(compact('owners'));
+        $lateOwners = $this->PaymentController->latePayment();
+
+		return view('owners.index')->with(compact('owners', 'lateOwners'));
 
     }
 
