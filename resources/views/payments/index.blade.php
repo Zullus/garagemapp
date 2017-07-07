@@ -27,6 +27,18 @@
 
 				</div>
 
+				<div class="form-group">
+
+					<label for="owner_id" class="label-payments">Proprietário: </label>
+
+					{!! Form::text('day', $day, ['class' => 'form-control form-paymentss select2 menor', 'placeholder' => 'Dia']) !!}/
+
+					{!! Form::select('month', $months, $month, ['class' => 'form-control form-paymentss select2 menor', 'placeholder' => 'Mês']) !!}/
+
+					{!! Form::text('year', $year, ['class' => 'form-control form-paymentss select2 menor', 'placeholder' => 'Ano']) !!}
+
+				</div>
+
 				<button class="btn btn-warning">Enviar</button>
 
 			{!! Form::close() !!}

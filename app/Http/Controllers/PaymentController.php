@@ -19,15 +19,19 @@ class PaymentController extends Controller
 
 	public function index($month = null, $year = null){
 
+		$months = array(1 => 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
+
 		if(is_null($month)){
 
-			$month = date('m');
+			$month = date('n');
 		}
 
 		if(is_null($year)){
 
 			$year = date('Y');
 		}
+
+		$day = date('d');
 
 		$payments = \App\Payment::with('owner')
 					->whereBetween('payment_date', [$year . '-' . $month . '-1', $year . '-' . $month . '-31'])
@@ -45,7 +49,7 @@ class PaymentController extends Controller
 
 		$allowners = $this->allowners();
 
-		return view('payments.index')->with(compact('payments', 'total', 'allowners', 'month', 'year'));
+		return view('payments.index')->with(compact('payments', 'total', 'allowners', 'day', 'month', 'year', 'months'));
 
 	}
 
@@ -67,12 +71,14 @@ class PaymentController extends Controller
 
 		$input['amount'] = str_replace(',', '.', $input['amount']);
 
+		$payment_date = $input['year'] . '-' . $input['month'] . '-' . $input['day'];
+
 		$payment = new \App\Payment;
 
 		//$payment->fill($request);
 		$payment->amount   	   = (float)$input['amount'];
         $payment->owner_id 	   = $input['owner_id'];
-        $payment->payment_date = date('Y-n-d');
+        $payment->payment_date = $payment_date;//date('Y-n-d');
 
     	$payment->save();
 
@@ -90,17 +96,6 @@ class PaymentController extends Controller
 
     	return true;
 
-	}
-
-	public function create(){
-
-		$mounths = array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
-
-		$sucesso = NULL;
-
-		$owners = $this->allowners();
-
-		return view('payments.edit')->with(compact('owners', 'sucesso', 'mounths'));;
 	}
 
 	public function find($id){
