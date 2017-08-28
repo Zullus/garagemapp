@@ -4,7 +4,7 @@
 
 	<h1 title="Proprietários">Proprietários</h1>
 
-	@if(@lateOwners != null)
+	@if($lateOwners != null)
 
 		<div class="alert alert-danger">
 
