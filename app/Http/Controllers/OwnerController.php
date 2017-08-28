@@ -64,31 +64,39 @@ class OwnerController extends Controller
 
     	$owner->save();
 
-    	foreach ($input['phonenumber'] as $p => $phonenumber) {
+        foreach ($input['phonenumber'] as $p => $phonenumber) {
 
-    		if($input['phonecompany'][$p] == ''){
-				$input['phonecompany'][$p] = 0;
-			}
+            if($input['phonenumber'][$p] != null){
 
-    		$phones = array('number'   => $input['phonenumber'][$p],
-							'type'     => $input['phonetype'][$p],
-							'company'  => $input['phonecompany'][$p],
-							'owner_id' => $owner->id
-							);
+        		if($input['phonecompany'][$p] == ''){
+    				$input['phonecompany'][$p] = 0;
+    			}
 
-    		$phone = $this->PhoneController->store($phones);
-    	}
+        		$phones = array('number'   => $input['phonenumber'][$p],
+    							'type'     => $input['phonetype'][$p],
+    							'company'  => $input['phonecompany'][$p],
+    							'owner_id' => $owner->id
+    							);
+
+        		$phone = $this->PhoneController->store($phones);
+        	}
+
+        }
 
     	foreach ($input['carbrand'] as $c => $carbrand) {
 
-    		$cars = array('brand'    => $input['carbrand'][$c],
-						  'model'    => $input['carmodel'][$c],
-						  'color'    => $input['carcolor'][$c],
-						  'plate'    => $input['carplate'][$c],
-						  'owner_id' => $owner->id
-							);
+            if($input['carbrand'][$c]){
 
-    		$car = $this->CarController->store($cars);
+        		$cars = array('brand'    => $input['carbrand'][$c],
+    						  'model'    => $input['carmodel'][$c],
+    						  'color'    => $input['carcolor'][$c],
+    						  'plate'    => $input['carplate'][$c],
+    						  'owner_id' => $owner->id
+    							);
+
+        		$car = $this->CarController->store($cars);
+
+            }
     	}
 
     	return $this->show($owner->id);
