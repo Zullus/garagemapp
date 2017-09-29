@@ -88,6 +88,16 @@
 					<td>
 						{{$owner['sector']}}
 					</td>
+
+					@if($owner['deleted_at'] != NULL)
+
+						<td>
+							<a href="{!! route('owners.restore', ['id' => $owner['id']]) !!}">
+								<button class="btn btn-warning">Restaurar Proprietário</button>
+							</a>
+						</td>
+
+					@endif
 				</tr>
 
 			@endforeach

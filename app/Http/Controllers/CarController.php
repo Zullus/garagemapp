@@ -118,6 +118,13 @@ class CarController extends Controller
 		return true;
 	}
 
+    public function restoreCarsByOwner($owner_id){
+
+        $cars = DB::table('cars')->where('owner_id', '=', $owner_id)->update(['deleted_at' => null]);
+
+        return true;
+    }
+
 	public function selfUpdate(Request $request){
 
 		$car = $this->find($request['id']);

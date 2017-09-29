@@ -106,4 +106,11 @@ class PhoneController extends Controller
 		return true;
 	}
 
+    public function restorePhonesByOwner($owner_id){
+
+        $phones = DB::table('phones')->where('owner_id', '=', $owner_id)->get();//->update(['deleted_at' => null]);
+
+        return true;
+    }
+
 }

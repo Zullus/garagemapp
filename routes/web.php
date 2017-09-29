@@ -28,10 +28,12 @@ Route::group(['prefix' => 'proprietarios'], function(){
 
 	Route::get('/', ['as' => 'owners.index', 'uses' => 'OwnerController@index']);
 	Route::get('new', ['as' => 'owners.create', 'uses' => 'OwnerController@create']);
+	Route::get('apagados', ['as' => 'owners.deleted', 'uses' => 'OwnerController@deleted']);
 	Route::get('{id}', ['as' => 'owners.show', 'uses' => 'OwnerController@show']);
 	Route::post('store', ['as' => 'owners.store', 'uses' => 'OwnerController@store']);
 	Route::get('{id}/edit', ['as' => 'owners.edit', 'uses' => 'OwnerController@edit']);
 	Route::post('{id}/update', ['as' => 'owners.update', 'uses' => 'OwnerController@update']);
+	Route::get('{id}/restore', ['as' => 'owners.restore', 'uses' => 'OwnerController@restore']);
 	Route::get('{id}/delete', ['as' => 'owners.destroy', 'uses' => 'OwnerController@destroy']);
 
 });

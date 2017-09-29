@@ -25,10 +25,19 @@ class OwnerController extends Controller
 
     public function index(){
 
-    	$owners = \App\Owner::with('cars', 'phones')->orderBy('name', 'asc')->paginate(env('PAGINATION_ITEMS', 20));
+        $owners = \App\Owner::with('cars', 'phones')->orderBy('name', 'asc')->paginate(env('PAGINATION_ITEMS', 20));
 
         $lateOwners = $this->PaymentController->latePayment();
 
+        return view('owners.index')->with(compact('owners', 'lateOwners'));
+
+    }
+
+    public function deleted(){
+
+    	$owners = \App\Owner::onlyTrashed()->with('cars', 'phones')->orderBy('name', 'asc')->paginate(env('PAGINATION_ITEMS', 20));
+
+        $lateOwners = null;
 		return view('owners.index')->with(compact('owners', 'lateOwners'));
 
     }
@@ -174,6 +183,17 @@ class OwnerController extends Controller
 
     	return redirect()->route('owners.index')->with(['message'=> 'Objeto já foi apagado']);
 	}
+
+    public function restore($id){
+
+        $owner = \App\Owner::withTrashed()->find($id)->restore();
+
+        $this->PhoneController->restorePhonesByOwner($id);
+
+        $this->CarController->restoreCarsByOwner($id);
+
+        return redirect()->route('owners.index')->with(['message'=> 'Successfully retored!!']);
+    }
 
 	public function find($id){
 
